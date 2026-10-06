@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire Menu</title>
+  <style>
+    :root {
+      --bg-dark: #111820;
+      --bg-panel: rgba(18, 22, 30, 0.9);
+      --bg-soft: rgba(255,255,255,0.03);
+      --line: rgba(255,255,255,0.08);
+      --text: #f3f5f7;
+      --muted: #b3bdc7;
+      --orange: #ff7a3d;
+      --orange-2: #ffad45;
+      --button: #f1f3f5;
+      --button-text: #101820;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #0d1117, #111820 35%, #141d26 100%);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+    }
+
+    body {
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 116, 64, 0.14), transparent 20%),
+        radial-gradient(circle at 70% 15%, rgba(255, 188, 94, 0.08), transparent 18%);
+      pointer-events: none;
+    }
+
+    .menu-card {
+      position: relative;
+      width: 430px;
+      min-height: 210px;
+      padding: 18px 18px 14px;
+      border-radius: 24px;
+      background: rgba(17, 21, 29, 0.9);
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 10px 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.015);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .app {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ff7b45 0%, #ff9d44 60%, #ffba44 100%);
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45), 0 8px 18px rgba(255, 118, 54, 0.42);
+      flex-shrink: 0;
+    }
+
+    .logo::before {
+      content: "";
+      position: absolute;
+      inset: 10px 11px 10px 11px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.13);
+      border: 1px solid rgba(255,255,255,0.11);
+    }
+
+    .fire {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-8deg);
+      width: 22px;
+      height: 22px;
+      z-index: 1;
+    }
+
+    .fire::before,
+    .fire::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #fffbed 0%, #ffef9e 20%, #ffbb62 54%, #ff6d39 100%);
+      clip-path: polygon(50% 0%, 62% 24%, 100% 35%, 70% 58%, 86% 100%, 50% 80%, 14% 100%, 30% 58%, 0% 35%, 38% 24%);
+      filter: drop-shadow(0 0 7px rgba(255, 180, 88, 0.7));
+    }
+
+    .fire::after {
+      transform: scale(0.58) translateY(2px);
+      opacity: 0.95;
+    }
+
+    .info {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .app-name {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: 0.02em;
+      color: #f5f7fa;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .package {
+      margin-top: 3px;
+      font-size: 0.73rem;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .open-btn {
+      border: none;
+      background: linear-gradient(180deg, #f7f9fb 0%, #edf1f4 100%);
+      color: var(--button-text);
+      border-radius: 999px;
+      padding: 12px 19px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 8px 14px rgba(0,0,0,0.12);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-width: 95px;
+    }
+
+    .open-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 18px rgba(0,0,0,0.16);
+    }
+
+    .open-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 480px) {
+      .menu-card {
+        width: min(90vw, 430px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-card">
+    <div class="menu-list">
+      <div class="item">
+        <div class="app">
+          <div class="logo">
+            <span class="fire"></span>
+          </div>
+          <div class="info">
+            <p class="app-name">Free Fire</p>
+            <div class="package">com.dts.freefire</div>
+          </div>
+        </div>
+        <button class="open-btn">OPEN</button>
+      </div>
+
+      <div class="item">
+        <div class="app">
+          <div class="logo">
+            <span class="fire"></span>
+          </div>
+          <div class="info">
+            <p class="app-name">Free Fire</p>
+            <div class="package">com.dts.freefire</div>
+          </div>
+        </div>
+        <button class="open-btn">OPEN</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
